@@ -28,7 +28,7 @@ public class ContactHelper extends HelperBase{
     type(By.name("address"),contactDate.getAddress());
     type(By.name("mobile"),contactDate.getMobile());
     type(By.name("email"),contactDate.getEmail());
-   
+
   }
 
   public void deleteSelectedContact() {
@@ -38,5 +38,22 @@ public class ContactHelper extends HelperBase{
   public void selectContact() {
 
     click(By.name("selected[]"));
+  }
+
+  public void confirmDeletionContact() {
+
+    AlertAssept();
+  }
+
+  public void initContactModification() {
+
+    click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
+
+
+  }
+
+
+  public void submitContactModification() {
+    click(By.name("update"));
   }
 }

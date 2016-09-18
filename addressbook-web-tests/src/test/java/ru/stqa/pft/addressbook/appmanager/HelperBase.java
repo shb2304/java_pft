@@ -23,6 +23,12 @@ public class HelperBase {
     wd.findElement(locator).clear();
     wd.findElement(locator).sendKeys(text);
   }
+ protected void AlertAssept (){
+    wd.switchTo().alert().accept();
+ }
+
+
+
 
   public boolean isAlertPresent() {
     try {
