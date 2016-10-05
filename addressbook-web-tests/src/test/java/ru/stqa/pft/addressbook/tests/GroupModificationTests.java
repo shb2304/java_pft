@@ -10,6 +10,7 @@ public class GroupModificationTests extends TestBase{
 
   @Test
   public void testGroupModification(){
+    app.getNavigationHelper().gotoHomePage();
     app.getNavigationHelper().gotoGroupPage();
     app.getGroupHelper().selectGroup();
     app.getGroupHelper().initGroupModification();
