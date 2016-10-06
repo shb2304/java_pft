@@ -1,16 +1,12 @@
 package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
-import ru.stqa.pft.addressbook.model.ContactDate;
-import ru.stqa.pft.addressbook.model.GroupDate;
+import ru.stqa.pft.addressbook.model.ContactData;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,15 +33,15 @@ public class ContactHelper extends HelperBase {
     click(By.xpath("//div[@id='content']/form/input[21]"));
   }
 
-  public void fillContactForm(ContactDate contactDate, boolean creation) {
-    type(By.name("firstname"), contactDate.getFirstname());
-    type(By.name("lastname"), contactDate.getLastname());
-    type(By.name("address"), contactDate.getAddress());
-    type(By.name("mobile"), contactDate.getMobile());
-    type(By.name("email"), contactDate.getEmail());
+  public void fillContactForm(ContactData contactData, boolean creation) {
+    type(By.name("firstname"), contactData.getFirstname());
+    type(By.name("lastname"), contactData.getLastname());
+    type(By.name("address"), contactData.getAddress());
+    type(By.name("mobile"), contactData.getMobile());
+    type(By.name("email"), contactData.getEmail());
 
     if (creation) {
-      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactDate.getGroup());
+      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
     } else {
       Assert.assertFalse(isElementPresent(By.name("new_group")));
     }
@@ -74,7 +70,7 @@ public class ContactHelper extends HelperBase {
     click(By.name("update"));
   }
 
-  public void createContact(ContactDate contact, boolean creation) {
+  public void createContact(ContactData contact, boolean creation) {
     gotoAddnewPage();
     fillContactForm(contact, creation);
     enterContactCreation();
@@ -89,16 +85,17 @@ public class ContactHelper extends HelperBase {
     return wd.findElements(By.name("selected[]")).size();
   }
 
-  public List<ContactDate> getContactList() {
-    List<ContactDate> contacts = new ArrayList<ContactDate>();
-    List<WebElement> elements = wd.findElements(By.cssSelector("tr.entry"));
+  public List<ContactData> getContactList() {
+    List<ContactData> contacts = new ArrayList<ContactData>();
+    List<WebElement> elements = wd.findElements(By.name("entry"));
     for (WebElement element : elements) {
-      String firstname = element.getText();
-      String lastname = element.getText();
-      String address = element.getText();
-      String mobile = element.getText();
-      String email = element.getText();
-      ContactDate contact = new ContactDate(firstname, lastname, address, mobile, email, null);
+      List<WebElement> cells= element.findElements(By.tagName("td"));
+      String firstname = cells.get(3).getText();
+      String lastname = cells.get(2).getText();
+      String address = cells.get(4).getText();
+      String mobile = cells.get(6).getText();
+      String email = cells.get(5).getText();
+      ContactData contact = new ContactData(firstname, lastname, address, mobile, email, null);
       contacts.add(contact);
     }
     return contacts;

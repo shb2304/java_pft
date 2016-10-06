@@ -4,7 +4,7 @@ package ru.stqa.pft.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import ru.stqa.pft.addressbook.model.GroupDate;
+import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,10 +26,10 @@ public class GroupHelper extends HelperBase {
     click(By.name("submit"));
   }
 
-  public void fillGroupForm(GroupDate groupDate) {
-    type(By.name("group_name"), groupDate.getName());
-    type(By.name("group_header"), groupDate.getHeader());
-    type(By.name("group_footer"), groupDate.getFooter());
+  public void fillGroupForm(GroupData groupData) {
+    type(By.name("group_name"), groupData.getName());
+    type(By.name("group_header"), groupData.getHeader());
+    type(By.name("group_footer"), groupData.getFooter());
   }
 
   public void initGroupCreation() {
@@ -52,7 +52,7 @@ public class GroupHelper extends HelperBase {
     click(By.name("update"));
   }
 
-  public void createGroup(GroupDate group) {
+  public void createGroup(GroupData group) {
     initGroupCreation();
     fillGroupForm(group);
     submitGroupCreation();
@@ -67,12 +67,12 @@ public class GroupHelper extends HelperBase {
     return wd.findElements(By.name("selected[]")).size();
   }
 
-  public List<GroupDate> getGroupList() {
-    List<GroupDate> groups = new ArrayList<GroupDate>();
+  public List<GroupData> getGroupList() {
+    List<GroupData> groups = new ArrayList<GroupData>();
     List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
     for (WebElement element : elements) {
       String name = element.getText();
-      GroupDate group = new GroupDate(name, null, null);
+      GroupData group = new GroupData(name, null, null);
       groups.add(group);
     }
     return groups;

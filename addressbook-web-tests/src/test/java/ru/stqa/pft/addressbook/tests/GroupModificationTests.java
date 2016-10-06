@@ -2,7 +2,7 @@ package ru.stqa.pft.addressbook.tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import ru.stqa.pft.addressbook.model.GroupDate;
+import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.List;
 
@@ -16,15 +16,15 @@ public class GroupModificationTests extends TestBase{
 
     app.getNavigationHelper().gotoGroupPage();
     if(! app.getGroupHelper().isThereAGroup()){
-      app.getGroupHelper().createGroup(new GroupDate("test_s1", null, null));
+      app.getGroupHelper().createGroup(new GroupData("test_s1", null, null));
     }
-    List<GroupDate> before = app.getGroupHelper().getGroupList();
+    List<GroupData> before = app.getGroupHelper().getGroupList();
     app.getGroupHelper().selectGroup(before.size()-1);
     app.getGroupHelper().initGroupModification();
-    app.getGroupHelper().fillGroupForm(new GroupDate("test_s1", "test_s2", "test_s3"));
+    app.getGroupHelper().fillGroupForm(new GroupData("test_s1", "test_s2", "test_s3"));
     app.getGroupHelper().submitGroupModification();
     app.getGroupHelper().returnToGroupPage();
-    List<GroupDate> after = app.getGroupHelper().getGroupList();
+    List<GroupData> after = app.getGroupHelper().getGroupList();
     Assert.assertEquals(after.size(),before.size());
   }
 }
