@@ -7,6 +7,8 @@ import ru.stqa.pft.addressbook.model.ContactData;
 
 import java.util.List;
 
+import static org.testng.Assert.assertEquals;
+
 
 public class ContactCreationTest extends TestBase {
 
