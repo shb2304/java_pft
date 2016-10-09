@@ -16,7 +16,7 @@ public void testContactModification() {
     app.getNavigationHelper().gotoHomePage();
     if (!app.getContactHelper().isThereAContact()) {
       app.getContactHelper().createContact(new ContactData("Sasha_s", "Sasha_b", "Moscow", "+7(123)4567899",
-              "qwe@gmail.com", "test_s1"), true);}
+              "qwe@gmail.com", "test_s1"));}
     List<ContactData> before = app.getContactHelper().getContactList();
     app.getContactHelper().initContactModification();
     app.getContactHelper().fillContactForm(new ContactData("Sasha_s", "Sasha_b", "Moscow",
