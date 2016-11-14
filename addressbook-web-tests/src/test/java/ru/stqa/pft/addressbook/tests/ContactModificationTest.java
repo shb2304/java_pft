@@ -4,10 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Sai on 18.09.2016.
@@ -32,7 +29,10 @@ public void testContactModification() {
 
     before.remove(before.size()-1);
     before.add(contact);
-    Assert.assertEquals(new LinkedHashSet<Object>(before),new LinkedHashSet<Object>(after));
+      Comparator<? super ContactData> byId = (g1,g2)-> Integer.compare(g1.getId(),g2.getId());
+      before.sort(byId);
+      after.sort(byId);
+    Assert.assertEquals(before,after);
 
   }
 }
